@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(180deg, #ff9aaf, #ffc1cc);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* QUESTION */
+.question {
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 5;
+}
+
+/* BUTTONS */
+.btn {
+  position: absolute;
+  padding: 14px 34px;
+  border-radius: 30px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.yes {
+  top: 55%;
+  left: 45%;
+}
+
+.no {
+  top: 55%;
+  left: 55%;
+}
+
+/* ❤️ HEARTS */
+.hearts span {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.7;
+  animation: float 2s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+
+/* 💎 GLASSMORPHISM */
+.glass {
+  position: relative;
+  z-index: 5;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(1px);
+  border-radius: 20px;
+  padding: 250px;
+  color: white;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.glass img {
+  width: 220px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
