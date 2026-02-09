@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Jiya ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background: #ffe6f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+        touch-action: manipulation;
+    }
+
+    .container {
+        text-align: center;
+        padding: 20px;
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: clamp(24px, 6vw, 32px);
+        color: #d6336c;
+        margin-bottom: 25px;
+    }
+
+    button {
+        padding: 14px 32px;
+        font-size: 18px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    #yes {
+        background-color: #ff4d6d;
+        color: white;
+    }
+
+    #no {
+        background-color: #adb5bd;
+        color: white;
+        position: fixed;
+        left: 20px;
+        top: 20px;
+        z-index: 10;
+    }
+
+    #message {
+        display: none;
+        font-size: clamp(22px, 5vw, 26px);
+        color: #d6336c;
+        margin-top: 20px;
+    }
+
+    /* Hearts */
+    .heart {
+        position: fixed;
+        bottom: -40px;
+        font-size: 38px;
+        animation: floatUp linear infinite;
+        opacity: 0.9;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* Shake */
+    .shake {
+        animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(0); }
+        25% { transform: translate(-6px, 6px); }
+        50% { transform: translate(6px, -6px); }
+        75% { transform: translate(-6px, -6px); }
+        100% { transform: translate(0); }
+    }
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5c3c7c6a94.mp3?filename=romantic-ambient-piano-112191.mp3">
+</audio>
+
+<audio id="whoosh">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_5f7d1cfa91.mp3?filename=whoosh-6316.mp3">
+</audio>
+
+<div class="container" id="screen">
+    <h1>Jiya ❤️<br>Will you be my Valentine?</h1>
+    <button id="yes">Yes 💖</button>
+
+    <div id="message">
+        I knew it 😍❤️<br>
+        Love you always! 💕
+    </div>
+</div>
+
+<button id="no">No 🙃</button>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const message = document.getElementById("message");
+    const screen = document.getElementById("screen");
+    const whoosh = document.getElementById("whoosh");
+
+    let speed = 1;
+
+    function moveNoButton() {
+        whoosh.currentTime = 0;
+        whoosh.play();
+
+        screen.classList.add("shake");
+        setTimeout(() => screen.classList.remove("shake"), 300);
+
+        const btnW = noBtn.offsetWidth;
+        const btnH = noBtn.offsetHeight;
+        const yesRect = yesBtn.getBoundingClientRect();
+
+        let x, y;
+        do {
+            x = Math.random() * (window.innerWidth - btnW - 10);
+            y = Math.random() * (window.innerHeight - btnH - 10);
+        } while (
+            x > yesRect.left - btnW &&
+            x < yesRect.right &&
+            y > yesRect.top - btnH &&
+            y < yesRect.bottom
+        );
+
+        noBtn.style.transition = `all ${0.18 / speed}s linear`;
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        speed += 0.25;
+    }
+
+    // TOUCH + CLICK SUPPORT
+    noBtn.addEventListener("click", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+        message.style.display = "block";
+        launchHearts();
+    });
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 140);
+
+    function launchHearts() {
+        for (let i = 0; i < 30; i++) {
+            createHeart();
+        }
+    }
+</script>
+
+</body>
+</html>
